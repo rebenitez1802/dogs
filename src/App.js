@@ -10,14 +10,14 @@ function App() {
   const fetchBreads = async () => {
     const response = await axios.get(`https://dog.ceo/api/breeds/list/all`);
   
-    setBreads(response.message);
+    setBreads(response.data.message);
   };
   const [breads, setBreads] = React.useState([]);
-  React.useEffect(()=>  {fetchBreads(breads)},[breads]);
+  React.useEffect(()=>  {fetchBreads(breads)},[]);
 
   return (
     <Container>     
-      <Layout />
+      <Layout breads={breads} />
     </Container>
     );
 }

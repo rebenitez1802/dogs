@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 function renderMenu(props){    
   
-    return (
+    return (props.breads?
         <div>             
             <div className={props.classes.toolbar} >
                 <Typography variant="h6" noWrap>
@@ -43,7 +43,7 @@ function renderMenu(props){
                     )
                 })}               
             </List>            
-        </div> );
+        </div>:'' );
 }
 
 function Menu(props){      

@@ -91,7 +91,7 @@ function Layout(props) {
         mobileOpen = {mobileOpen}
         container={container} 
         classes={classes} 
-        breads = {breads}/>
+        breads = {props.breads}/>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <ImagesGridList images={images}/>
