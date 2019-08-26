@@ -9,11 +9,7 @@ import  {makeStyles} from '@material-ui/core/styles';
 import Menu from './menu';
 import ImagesGridList from './gridList';
 const drawerWidth = 240;
-const breads ={
-  "poodle":["blah"],
-  "doberman":[],
-  "terrier":["american","english"]
-}
+
 const images=[
         {img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg", title:"hound-afghan"}
         ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1007.jpg", title:"hound-afghan"}
@@ -91,10 +87,11 @@ function Layout(props) {
         mobileOpen = {mobileOpen}
         container={container} 
         classes={classes} 
-        breads = {props.breads}/>
+        breads = {props.breads}
+        handleBreadclick = {props.handleBreadclick}/>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <ImagesGridList images={images}/>
+        <ImagesGridList images={props.data}/>
       </main>
     </div>
   );

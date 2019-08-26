@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -23,45 +23,45 @@ function MenuItem(props){
     function handleClick() {
       setOpen(!open);
     }
-    return (props.subbreads.length > 0?
-    [
-        <ListItem button key={props.bread} onClick={handleClick}>                                               
+    return (
+        <Fragment>
+        <ListItem button key={props.bread}>                                               
             
             <ListItemIcon>
                 <Checkbox
-                  checked={false}
+                  checked={props.checked}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': props.bread }}
+                  onChange={(evt)=>{
+                      evt.preventDefault();
+                      props.handleBreadclick(props.bread,null,props.checked)}}
                 />
             </ListItemIcon>
             <ListItemText primary={props.bread} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>,
-        <Collapse key={"collapse-"+props.bread} in={open} timeout="auto" unmountOnExit>
+            {props.subbreads.length>0? open ? <ExpandLess  onClick={handleClick} /> : <ExpandMore  onClick={handleClick} />:null}
+        </ListItem>
+        {props.subbreads.length > 0?
+        <Collapse  key={"collapse-"+props.bread.bread} in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
                 {props.subbreads.map((subread)=> {
-                    return (<ListItem button key={subread} className={classes.nested}>    
+                    return (<ListItem button key={subread.bread} className={classes.nested}>    
                         <ListItemIcon>
                             <Checkbox
-                                checked={false}
+                                checked={subread.checked}
                                 tabIndex={-1}
                                 disableRipple
-                                inputProps={{ 'aria-labelledby': subread }}
+                                inputProps={{ 'aria-labelledby': subread.bread }}
+                                onChange={()=> props.handleBreadclick(props.bread, subread.bread, subread.checked)}
                                 />    
                         </ListItemIcon>                                       
-                        <ListItemText primary={subread} />
+                        <ListItemText primary={subread.bread} />
                     </ListItem>)
                 })}
             </List>
         </Collapse>
-    ]
-    :
-    <ListItem button key={props.bread}>           
-        
-        <ListItemText primary={props.bread} />
-    
-    </ListItem>
+   :null
+   }</Fragment>
     );
 }
 export default MenuItem;

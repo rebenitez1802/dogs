@@ -33,12 +33,14 @@ function renderMenu(props){
             </div>
             <Divider />            
             <List>
-                {Object.keys(props.breads).map((bread)=>{
+                {props.breads.map((bread,i)=>{
                     return (
                             <MenuItem 
-                                key={bread}
-                                bread = {bread}
-                                subbreads= {props.breads[bread]}
+                                key={bread.bread+i}
+                                bread = {bread.bread}
+                                subbreads= {bread.subreads}
+                                checked= {bread.checked}
+                                handleBreadclick = {props.handleBreadclick}
                             />               
                     )
                 })}               
