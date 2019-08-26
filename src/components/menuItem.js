@@ -33,9 +33,7 @@ function MenuItem(props){
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': props.bread }}
-                  onChange={(evt)=>{
-                      evt.preventDefault();
-                      props.handleBreadclick(props.bread,null,props.checked)}}
+                  onChange={()=>props.handleBreadclick(props.bread,null,props.checked)}
                 />
             </ListItemIcon>
             <ListItemText primary={props.bread} />

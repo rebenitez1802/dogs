@@ -8,5 +8,3 @@ export const getBreedFromUrl  =(url)=>{
 
         return url.slice(url.indexOf('breeds/')+7).slice(0,end).split('-');}
 }
-
-export default {replaceInPosition, getBreedFromUrl}

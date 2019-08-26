@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import './App.css';
@@ -26,9 +26,9 @@ const updateCache =(cache, key, subKey, data)=>{
   if(subKey === null){
     if(current.subreads.length <= 0)
       //fill data upper level
-      return replaceInPosition(cache, currentIndex, {...current, isPartialyCached:false, data:data});
+      return replaceInPosition(cache, currentIndex, {...current, isPartialyCached:false, data:data.map((url)=> ({img: url, title:getBreedFromUrl(url)[0]}))});
     //fill data in second level by subkey
-    return replaceInPosition(cache, currentIndex, {...current, subreadsCached: current.subreads.map((ub)=> ub.bread), isPartialyCached:false, subreads:current.subreads.map((subr)=> ({...subr, data:data.filter((url)=> getBreedFromUrl(url.img)[1] === subr.bread)}))})
+    return replaceInPosition(cache, currentIndex, {...current, subreadsCached: current.subreads.map((ub)=> ub.bread), isPartialyCached:false, subreads:current.subreads.map((subr)=> ({...subr, data:data.filter((url)=> getBreedFromUrl(url)[1] === subr.bread).map((url)=>({img:url, title: getBreedFromUrl(url).join('-')}))}))})
    
   }else{
     //fill data in single second level
@@ -37,7 +37,7 @@ const updateCache =(cache, key, subKey, data)=>{
     return replaceInPosition(cache, currentIndex, {...current,
                                                 isPartialyCached: current.subreadsCached.length+1 === current.subreads.length? false: true,
                                                 subreadsCached: [...current.subreadsCached, subKey],
-                                                subreads: replaceInPosition(current.subreads, currentSubIndex, {...currentSub, data:data}) 
+                                                subreads: replaceInPosition(current.subreads, currentSubIndex, {...currentSub, data:data.map((url)=> ({img:url, title:getBreedFromUrl(url).join('-')}))}) 
                                                 })
   }
 
@@ -48,7 +48,7 @@ const getDataFromCache=(bread,subread,cache)=>{
     if(current.subreads.length <= 0){
       return current.data;
     }else
-      return current.isPartialyCached?[]:current.subreads.reduce((data, subread)=> data.concat(subread.data))
+      return current.isPartialyCached?[]:current.subreads.reduce((data, subread)=> data.concat(subread.data), [])
   }else{
     return current.subreads.find((sub)=> sub.bread===subread).data
   }
@@ -57,7 +57,7 @@ const removeFromData=(data,bread,subread)=>{
   if(subread === null)
     return data.filter((url)=> getBreedFromUrl(url.img)[0] !== bread)
   else
-    return data.filter((url)=> !(getBreedFromUrl(url.img)[0] !== bread && getBreedFromUrl(url.img)[1] !==subread))
+    return data.filter((url)=> !(getBreedFromUrl(url.img)[0] === bread && getBreedFromUrl(url.img)[1] ===subread))
 }
 function App() {
   const fetchBreads = async () => {
@@ -91,16 +91,17 @@ function App() {
       const newData = getDataFromCache(bread,subread,cache)
       if(newData.length > 0)
         setData([...data,...newData])
-      fetchImages(bread,subread).then((newData)=>{
-        setData([...data,...newData])
-      })
+      else
+        fetchImages(bread,subread).then((newData)=>{
+          setData([...data,...newData])
+        })
     }else{
       setData(removeFromData(data,bread,subread))
     }
     
   }
   
-  React.useEffect(()=>  {fetchBreads(breads)},[]);
+  React.useEffect(()=>  {fetchBreads()},[]);
 
   return (
     <Container>     

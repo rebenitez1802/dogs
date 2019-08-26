@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Item from './item';
+import { Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -30,6 +31,9 @@ export default function ImagesGridList(props) {
   return (
 
     <div className={classes.root}>
+      <Typography>
+          {props.images.length>0?`Showing ${props.images.length} results`:"Showing 0 Results, please choose some Filters!"}
+      </Typography>
       <Grid container className={classes.gridList} justify="space-evenly" alignItems="flex-start">
         {props.images.map(item => (
           <Item item key={item.img}
@@ -39,6 +43,8 @@ export default function ImagesGridList(props) {
           
         ))}
       </Grid>
+      
+    
     </div>
   );
 }

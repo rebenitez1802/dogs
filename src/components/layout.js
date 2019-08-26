@@ -9,23 +9,6 @@ import  {makeStyles} from '@material-ui/core/styles';
 import Menu from './menu';
 import ImagesGridList from './gridList';
 const drawerWidth = 240;
-
-const images=[
-        {img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1007.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1023.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_10263.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_10715.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_10822.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_10832.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_10982.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_11006.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_11172.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_11182.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1126.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_1128.jpg", title:"hound-afghan"}
-        ,{img:"https://images.dog.ceo/breeds/hound-afghan/n02088094_11432.jpg", title:"hound-afghan"}
-];
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
